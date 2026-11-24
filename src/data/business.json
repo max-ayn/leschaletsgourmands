@@ -1,0 +1,19 @@
+{
+  "name": "Les Chalets Gourmands",
+  "tagline": "Pizzeria au feu de bois à Loisin",
+  "description": "Pizzeria au feu de bois à Loisin (74) : pizzas artisanales à emporter ou en livraison, 7j/7, près de Douvaine et Veigy-Foncenex. Tél. 06 29 62 41 16.",
+  "url": "https://www.leschaletsgourmands.fr",
+  "phone": { "display": "06 29 62 41 16", "international": "+33 6 29 62 41 16" },
+  "address": { "street": "881 Rte des Penets", "postalCode": "74140", "city": "Loisin", "country": "FR", "countryName": "France" },
+  "geo": { "lat": 46.2749754, "lng": 6.3129049 },
+  "priceRange": "10–20 €",
+  "cuisine": "Pizza",
+  "nearbyTowns": ["Douvaine", "Bons-en-Chablais", "Veigy-Foncenex", "Ballaison", "Massongy"],
+  "links": {
+    "facebook": "https://www.facebook.com/p/Les-Chalets-Gourmands-61570972090365/",
+    "instagram": "https://www.instagram.com/les_chalets_gourmands/",
+    "googleMaps": "",
+    "googleReview": "",
+    "delivery": "https://www.chablivraison.fr/etablissement/59-Les-Chalets-Gourmands"
+  }
+}

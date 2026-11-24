@@ -1,0 +1,44 @@
+{
+  "devise": "EUR",
+  "slogan": "Toutes nos pizzas sont élaborées à partir de produits de grande qualité",
+  "pizzas": [
+    { "nom": "Aoste", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "roquette", "tomate cerise", "jambon cru", "grana padano"] },
+    { "nom": "Andalouse", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "poivrons", "oignons", "saucisse piquante", "olives", "origan"] },
+    { "nom": "Bressane", "prix": 14.50, "base": "crème fraîche", "ingredients": ["crème fraîche", "mozzarella", "champignons", "poulet"] },
+    { "nom": "Bufala", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "mozzarella di bufala", "basilic"] },
+    { "nom": "Bolognaise", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "bœuf haché", "persillade", "olives"] },
+    { "nom": "Chèvre", "prix": 14.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "champignons", "chèvre", "olives"] },
+    { "nom": "Chèvre Miel", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "champignons", "chèvre", "olives", "miel"] },
+    { "nom": "Carbonara", "prix": 13.50, "base": "crème fraîche", "ingredients": ["crème fraîche", "mozzarella", "lardons", "oignons", "œuf", "olives"] },
+    { "nom": "Calzone", "prix": 14.50, "base": "tomate", "en_chausson": true, "ingredients": ["tomate", "mozzarella", "champignons", "jambon", "œuf", "origan"] },
+    { "nom": "Créole", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "rougail saucisse", "piment"] },
+    { "nom": "Exotique", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "crème coco", "poulet", "curry", "oignons", "poivrons", "combava"] },
+    { "nom": "4 Fromages", "prix": 15.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "chèvre", "gorgonzola", "raclette", "olives"] },
+    { "nom": "Fermière", "prix": 15.00, "base": "crème fraîche", "ingredients": ["crème fraîche", "mozzarella", "champignons", "lardons", "jambon", "olives"] },
+    { "nom": "Helvétique", "prix": 18.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "fromage fondu", "ail", "vin blanc", "viande séchée", "poivre"] },
+    { "nom": "La Chalet Gourmande", "prix": 17.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "roquette", "jambon cru", "tomate cerise", "grana padano", "mozzarella di bufala", "huile de truffe"] },
+    { "nom": "Marguerite", "prix": 12.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "olives", "origan"] },
+    { "nom": "Mexicaine", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "bœuf haché", "persillade", "poivrons", "maïs"] },
+    { "nom": "Napolitaine", "prix": 14.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "anchois", "câpres", "olives", "origan"] },
+    { "nom": "Nordique", "prix": 15.50, "base": "crème fraîche", "ingredients": ["crème fraîche", "mozzarella", "pommes de terre", "oignons", "saumon", "persillade"] },
+    { "nom": "Océane", "prix": 15.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "crevettes", "saumon", "oignons", "crème coco", "combava"] },
+    { "nom": "Orientale", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "merguez", "oignons", "poivrons", "olives", "origan"] },
+    { "nom": "Parmigiana", "prix": 15.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "aubergine", "bœuf haché", "grana padano", "oignons", "olives"] },
+    { "nom": "Raclette", "prix": 15.00, "base": "crème fraîche", "ingredients": ["crème fraîche", "mozzarella", "pommes de terre", "oignons", "raclette", "jambon cru"] },
+    { "nom": "Reine", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "champignons", "jambon cuit", "olives"] },
+    { "nom": "Savoyarde", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "pommes de terre", "reblochon", "lardons", "oignons"] },
+    { "nom": "Sicilienne", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "thon", "câpres", "olives", "origan"] },
+    { "nom": "4 Saisons", "prix": 15.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "champignons", "poivron", "aubergine", "jambon", "olives"] },
+    { "nom": "Thon", "prix": 15.00, "base": "tomate", "ingredients": ["tomate", "mozzarella", "thon", "persillade", "olives"] },
+    { "nom": "Végétarienne", "prix": 14.50, "base": "tomate", "ingredients": ["tomate", "mozzarella", "champignons", "olives", "aubergines", "poivrons", "oignons", "persillade"] }
+  ],
+  "desserts": [
+    { "nom": "Tiramisu au café", "prix": 4.00 },
+    { "nom": "Pizza Chocolat", "prix": 10.00, "en_chausson": true, "ingredients": ["Snickers", "crème fraîche", "coulis caramel", "chocolat"] },
+    { "nom": "Pizza au Nutella", "prix": 10.00, "en_chausson": true, "ingredients": ["Nutella", "crème fraîche", "noisettes grillées", "coulis caramel", "chocolat"] }
+  ],
+  "supplements": [
+    { "type": "viande, saumon, thon, produit laitier", "prix": 3.50 },
+    { "type": "autre supplément", "prix": 2.00 }
+  ]
+}

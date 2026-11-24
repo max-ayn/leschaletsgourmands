@@ -1,0 +1,157 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PhoneIcon from '../components/PhoneIcon.astro';
+import business from '../data/business.json';
+import menu from '../data/menu.json';
+import { openEveryDay, groupedDays } from '../lib/hours.js';
+import pizzaPhoto from '../assets/photos/pizza-signature.jpg';
+import chaletPhoto from '../assets/photos/chalet-pizza.jpg';
+import logo from '../assets/logo/les-chalets-gourmands-logo-blanc.svg';
+
+const title = `${business.name} – Pizzeria au feu de bois à Loisin (74)`;
+const tel = `tel:${business.phone.international.replaceAll(' ', '')}`;
+const directions = `https://www.google.com/maps/dir/?api=1&destination=${business.geo.lat},${business.geo.lng}`;
+
+const price = (n: number) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: menu.devise }).format(n);
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const list = (items: string[]) => cap(items.join(', '));
+
+const sections = [
+  { title: 'Pizzas base tomate', items: menu.pizzas.filter((p) => p.base === 'tomate') },
+  { title: 'Pizzas base crème fraîche', items: menu.pizzas.filter((p) => p.base === 'crème fraîche') },
+  { title: 'Desserts', items: menu.desserts },
+];
+const towns = business.nearbyTowns;
+---
+<Base title={title} description={business.description}>
+  <header class="hero on-deep">
+    <Picture
+      src={pizzaPhoto}
+      formats={['avif', 'webp']}
+      widths={[480, 720]}
+      sizes="100vw"
+      alt="Pizza au feu de bois garnie de chorizo, jambon cru, roquette et tomates cerises, sur une planche en bois"
+      class="hero-img"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="wrap hero-content">
+      {openEveryDay && <p class="hero-open label">Ouvert 7 jours sur 7</p>}
+      <h1>
+        <img class="hero-logo" src={logo.src} width={logo.width} height={logo.height} alt={business.name} />
+        <span class="display">{business.tagline}</span>
+      </h1>
+      <div class="actions">
+        <a class="cg-btn cg-btn--call" href={tel}><PhoneIcon />{business.phone.display}</a>
+        <a class="cg-btn cg-btn--secondary" href={directions} rel="noopener">Itinéraire</a>
+        <a class="cg-btn cg-btn--secondary" href={business.links.delivery} rel="noopener">Livraison</a>
+      </div>
+    </div>
+    <nav class="wrap nav label" aria-label="Sections">
+      <a href="#carte">La carte</a>
+      <a href="#horaires">Horaires</a>
+      <a href="#infos">Nous trouver</a>
+      {business.links.googleReview && <a href="#avis">Avis</a>}
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <section id="carte" class="section" aria-labelledby="carte-titre">
+      <div class="wrap">
+        <h2 id="carte-titre">Notre carte</h2>
+        <p class="lead">{menu.slogan}, puis cuites au feu de bois, à emporter (commande par téléphone) ou en livraison.</p>
+
+        <div class="menu-cols">
+          {sections.map((s) => (
+            <div>
+              <h3 class="menu-cat">{s.title}</h3>
+              <ul class="cg-carte">
+                {s.items.map((p) => (
+                  <li class="cg-item">
+                    <p class="cg-item__name">{p.nom}</p>
+                    <span class="cg-item__price">{price(p.prix)}</span>
+                    {p.ingredients && <p class="cg-item__desc">{list(p.ingredients)}</p>}
+                    {p.en_chausson && <div class="cg-item__badges"><span class="cg-badge cg-badge--bois">En chausson</span></div>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div>
+            <h3 class="menu-cat">Suppléments</h3>
+            <ul class="cg-carte">
+              {menu.supplements.map((s) => (
+                <li class="cg-item">
+                  <p class="cg-item__name">{cap(s.type)}</p>
+                  <span class="cg-item__price">{price(s.prix)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="infos" class="section section-raised" aria-labelledby="infos-titre">
+      <div class="wrap grid-2">
+        <div>
+          <h2 id="infos-titre">Nous trouver à Loisin</h2>
+          <address class="address">
+            {business.address.street}<br />
+            {business.address.postalCode} {business.address.city}, {business.address.countryName}<br />
+            <a href={tel}>{business.phone.display}</a>
+          </address>
+          <p>
+            Nos chalets sont situés juste à côté de GiFi, à quelques minutes de {towns.slice(0, -1).join(', ')} et {towns.at(-1)}.
+          </p>
+          <p><a href={directions} rel="noopener">Itinéraire dans Google Maps</a></p>
+
+          <h3 id="horaires" class="hours-title">Horaires d'ouverture</h3>
+          <dl class="hours">
+            {groupedDays().map((g) => (
+              <div class="hours-row" data-days={g.schemaDays.join(' ')}>
+                <dt>{g.days}</dt>
+                <dd>{g.hours}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <Picture
+          src={chaletPhoto}
+          formats={['avif', 'webp']}
+          widths={[480, 960]}
+          sizes="(min-width: 48rem) 28rem, 100vw"
+          alt="Le chalet de cuisson des Chalets Gourmands à Loisin, avec sa cheminée de four à bois et sa petite terrasse"
+          class="split-img"
+        />
+      </div>
+    </section>
+
+    {/* Section masquée tant que les liens Google (business.json) sont vides. */}
+    {business.links.googleReview && (
+      <section id="avis" class="section" aria-labelledby="avis-titre">
+        <div class="wrap center">
+          <h2 id="avis-titre">Votre avis compte</h2>
+          <p>Vous avez aimé nos pizzas ? Un avis sur Google aide les gourmands des environs à nous trouver.</p>
+          <div class="actions actions-center">
+            <a class="cg-btn cg-btn--primary" href={business.links.googleReview} rel="noopener">Laisser un avis</a>
+            {business.links.googleMaps && <a class="cg-btn cg-btn--secondary" href={business.links.googleMaps} rel="noopener">Voir nos avis sur Google</a>}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <a class="cg-btn cg-btn--call call-bar" href={tel}><PhoneIcon />Appeler le {business.phone.display}</a>
+
+  <script is:inline>
+    // Met en avant le jour courant (heure de Paris).
+    (function () {
+      var day = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Europe/Paris' }).format(new Date());
+      var row = document.querySelector('[data-days~="' + day + '"]');
+      if (row) { row.classList.add('today'); row.setAttribute('aria-current', 'date'); }
+    })();
+  </script>
+</Base>

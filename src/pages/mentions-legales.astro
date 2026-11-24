@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import business from '../data/business.json';
+import PhoneIcon from '../components/PhoneIcon.astro';
+import logo from '../assets/logo/les-chalets-gourmands-logo-blanc.svg';
+---
+<Base title={`Mentions légales – ${business.name}`} description={`Mentions légales du site de ${business.name}, pizzeria au feu de bois à Loisin (74).`}>
+  <header class="page-header on-deep">
+    <div class="wrap">
+      <div class="top">
+        <a href="/"><img src={logo.src} width={logo.width} height={logo.height} alt={`${business.name} – retour à l'accueil`} /></a>
+        <a class="cg-btn cg-btn--call" href={`tel:${business.phone.international.replaceAll(' ', '')}`}><PhoneIcon />{business.phone.display}</a>
+      </div>
+      <h1>Mentions légales</h1>
+    </div>
+  </header>
+  <main id="contenu" class="section">
+    <div class="wrap"><div class="prose">
+      <h2>Éditeur du site</h2>
+      <p>
+        L'Ambiance Créole, enseigne {business.name}<br />
+        SAS au capital de 5 000 €<br />
+        Siège social : {business.address.street}, {business.address.postalCode} {business.address.city}, {business.address.countryName}<br />
+        Téléphone : {business.phone.display}<br />
+        SIREN : 843 550 831, immatriculée au Registre national des entreprises (RNE)<br />
+        SIRET : 843 550 831 00047<br />
+        N° TVA intracommunautaire : FR08 843 550 831<br />
+      </p>
+
+      <h2>Hébergeur</h2>
+      <p>
+        o2switch, SAS au capital de 100 000 €<br />
+        Chemin des Pardiaux, 63000 Clermont-Ferrand, France<br />
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus de ce site (textes, photos, logo) est la propriété de la société L'Ambiance Créole ({business.name}), sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>
+
+      <h2>Données personnelles et cookies</h2>
+      <p>Ce site ne collecte aucune donnée personnelle, ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience.</p>
+      <p>Les liens vers Google, Facebook, Instagram ou le service de livraison mènent vers des sites tiers soumis à leurs propres conditions.</p>
+    </div></div>
+  </main>
+</Base>

@@ -1,0 +1,91 @@
+---
+import { getImage } from 'astro:assets';
+import '@fontsource-variable/oswald';
+import '@fontsource-variable/source-sans-3';
+import '../styles/global.css';
+import business from '../data/business.json';
+import { openingHoursSpecification } from '../lib/hours.js';
+import photo from '../assets/photos/pizza-signature.jpg';
+import logo from '../assets/logo/les-chalets-gourmands-logo-blanc.svg';
+import oswaldLatin from '@fontsource-variable/oswald/files/oswald-latin-wght-normal.woff2?url';
+import sourceSansLatin from '@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2?url';
+
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const home = new URL('/', Astro.site).href;
+const og = await getImage({ src: photo, width: 720, height: 378, fit: 'cover', format: 'jpeg' });
+const ogUrl = new URL(og.src, Astro.site).href;
+const tel = `tel:${business.phone.international.replaceAll(' ', '')}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  '@id': `${home}#restaurant`,
+  name: business.name,
+  url: home,
+  image: ogUrl,
+  telephone: business.phone.international,
+  priceRange: business.priceRange,
+  servesCuisine: business.cuisine,
+  hasMenu: `${home}#carte`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    postalCode: business.address.postalCode,
+    addressLocality: business.address.city,
+    addressCountry: business.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: business.geo.lat, longitude: business.geo.lng },
+  openingHoursSpecification: openingHoursSpecification(),
+  areaServed: business.nearbyTowns.map((name) => ({ '@type': 'City', name })),
+  sameAs: [business.links.facebook, business.links.instagram, business.links.googleMaps].filter(Boolean), // lien vide = pas encore fourni
+};
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1f1915" />
+    <link rel="preload" href={oswaldLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={sourceSansLatin} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content={String(og.attributes.width)} />
+    <meta property="og:image:height" content={String(og.attributes.height)} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <slot />
+    <footer class="footer on-deep">
+      <div class="wrap">
+        <img class="footer-logo" src={logo.src} width={logo.width} height={logo.height} alt={business.name} loading="lazy" />
+        <a class="footer-phone" href={tel}>{business.phone.display}</a>
+        <address>
+          {business.address.street}, {business.address.postalCode} {business.address.city}
+        </address>
+        <ul class="footer-links">
+          <li><a href={business.links.facebook} rel="noopener">Facebook</a></li>
+          <li><a href={business.links.instagram} rel="noopener">Instagram</a></li>
+          <li><a href="/mentions-legales/">Mentions légales</a></li>
+        </ul>
+        <p class="small">© {new Date().getFullYear()} {business.name}</p>
+      </div>
+    </footer>
+  </body>
+</html>

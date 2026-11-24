@@ -1,0 +1,21 @@
+# o2switch (Apache) : HTTPS + www, compression, cache.
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.leschaletsgourmands.fr%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Images, polices, CSS, JS : les fichiers de /_astro/ ont un nom avec empreinte → cache d'un an.
+  <FilesMatch "\.(avif|webp|jpe?g|png|woff2|css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+ErrorDocument 404 /
