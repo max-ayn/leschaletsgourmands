@@ -64,7 +64,8 @@ Après chaque modification : `npm run build`, puis redéployer.
 Chaque `git push` sur `main` construit le site et l'envoie chez o2switch en FTPS (`.github/workflows/deploy.yml`). Suivi dans l'onglet **Actions** du dépôt ; relance manuelle avec **Run workflow**.
 
 - Accès : secrets GitHub `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (compte FTP cPanel limité au dossier du site). Jamais dans le code.
-- Seuls les fichiers modifiés sont envoyés (état gardé dans `.ftp-deploy-sync-state.json` sur le serveur : ne pas le supprimer).
+- Envoi avec `lftp` (`mirror --reverse`). Rien n'est supprimé côté serveur : une page retirée du site doit aussi être effacée à la main dans le gestionnaire de fichiers.
+- `FTP_SERVER` : utiliser le nom du serveur o2switch (`xxxx.o2switch.net`), dont le certificat TLS est valide.
 - Revenir en arrière : `git revert <commit>` puis `git push`.
 
 ### Manuel chez o2switch (secours)
