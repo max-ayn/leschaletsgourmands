@@ -1,0 +1,35 @@
+name: Déploiement o2switch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # bouton « Run workflow » pour relancer à la main
+
+concurrency: deploy # jamais deux déploiements en même temps
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24 # Astro 7 exige Node ≥ 22.23
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # Action tierce qui reçoit le mot de passe FTP : épinglée sur le commit de la v4.3.5.
+      - uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ./ # le compte FTP est déjà limité au dossier du site

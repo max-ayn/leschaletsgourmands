@@ -42,3 +42,4 @@ Suivre le design system « Les Chalets Gourmands » : https://claude.ai/artifact
 - `npm run dev` — serveur local
 - `npm run build` — build statique dans `dist/` (doit passer sans erreur)
 - `npm run preview` — sert `dist/`
+- Déploiement : automatique à chaque push sur `main` (GitHub Actions → FTPS o2switch, `.github/workflows/deploy.yml`).

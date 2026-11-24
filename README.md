@@ -59,7 +59,15 @@ Après chaque modification : `npm run build`, puis redéployer.
 
 ## Déployer
 
-### Chez o2switch (hébergement actuel)
+### Automatique (GitHub Actions)
+
+Chaque `git push` sur `main` construit le site et l'envoie chez o2switch en FTPS (`.github/workflows/deploy.yml`). Suivi dans l'onglet **Actions** du dépôt ; relance manuelle avec **Run workflow**.
+
+- Accès : secrets GitHub `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` (compte FTP cPanel limité au dossier du site). Jamais dans le code.
+- Seuls les fichiers modifiés sont envoyés (état gardé dans `.ftp-deploy-sync-state.json` sur le serveur : ne pas le supprimer).
+- Revenir en arrière : `git revert <commit>` puis `git push`.
+
+### Manuel chez o2switch (secours)
 
 1. `npm run build`, puis compresser le **contenu** de `dist/` (fichier `.htaccess` compris) :
    `cd dist && zip -r ../site-a-deployer.zip . && cd ..`
